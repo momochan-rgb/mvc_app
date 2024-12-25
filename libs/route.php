@@ -3,10 +3,8 @@
 function route($path, $httpMethod)
 {
     try {
-        var_dump('test0');
         list($controller, $method) = explode('/', $path);
         $case = [$method, $httpMethod];
-        var_dump('test1');
         switch ($controller) {
             case 'home':
                 $controllerName = 'HomeController';
@@ -21,12 +19,10 @@ function route($path, $httpMethod)
                 break;
 
             case 'user':
-                var_dump('test2');
                 $controllerName = 'UserController';
                 switch ($case) {
                     case ['log-in', 'get']:
                         $methodName = 'logIn';
-                        var_dump('test3');
                         break;
                     case ['sign-up', 'get']:
                         $methodName = 'signUp';
@@ -58,6 +54,30 @@ function route($path, $httpMethod)
                 }
                 break;
 
+            case 'contact':
+                $controllerName = 'ContactController';
+                switch ($case) {
+                    case ['index', 'get']:
+                        $methodName = 'index';
+                        break;
+                    case ['confirm', 'post']:
+                        $methodName = 'confirm';
+                        break;
+                    case ['submit', 'post']:
+                        $methodName = 'submit';
+                        break;
+                    case ['complete', 'post']:
+                        $methodName = 'complete';
+                        break;
+                    default:
+                        $controllerName = '';
+                        $methodName = '';
+                }
+                break;
+            default:
+                    $controllerName = '';
+                    $methodName = '';
+                
         }
         require_once(ROOT_PATH."Controllers/{$controllerName}.php");
 
