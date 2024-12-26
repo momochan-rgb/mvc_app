@@ -66,7 +66,7 @@ function route($path, $httpMethod)
                     case ['submit', 'post']:
                         $methodName = 'submit';
                         break;
-                    case ['complete', 'post']:
+                    case ['complete', 'get']:
                         $methodName = 'complete';
                         break;
                     default:

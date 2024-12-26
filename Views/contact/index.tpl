@@ -16,13 +16,13 @@
                 <p class="error-text">{$errorMessages['auth']|default:''}</p>
                 <div class="form-group">
                     <label for="name">氏名</label>
-                    <input type="text" class="form-control" name="name" placeholder="テスト太郎" maxlength="10" value="{$post['name']|default:''}">
+                    <input type="text" class="form-control" name="name" placeholder="テスト太郎" maxlength="50" value="{$post['name']|default:''}">
                     <p class="error-text">{$errorMessages['name']|default:''}</p>
                 </div>
 
                 <div class="form-group">
                     <label for="furigana">ふりがな</label>
-                    <input type="text" class="form-control" name="kana" placeholder="てすとたろう" maxlength="10" value="{$post['kana']|default:''}">
+                    <input type="text" class="form-control" name="kana" placeholder="てすとたろう" maxlength="50" value="{$post['kana']|default:''}">
                     <p class="error-text">{$errorMessages['kana']|default:''}</p>
                 </div>
 

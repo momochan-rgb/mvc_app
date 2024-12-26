@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 4.5.5, created on 2024-12-26 03:15:11
+  from '/Applications/MAMP/htdocs/mvc_app/Views/contact/confirm.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.5.5',
+  'unifunc' => 'content_676cca3f90e817_82937224',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '280907aa78c3f952610961fd6cbdd00fdb362508' => 
+    array (
+      0 => '/Applications/MAMP/htdocs/mvc_app/Views/contact/confirm.tpl',
+      1 => 1735182864,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_676cca3f90e817_82937224 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,30 +36,36 @@
         <div class="col-lg-6 mx-auto col-md-8">
             <h2 class="mb-4">確認画面</h2>
             <form action="/contact/submit" method="post" class="bg-white p-3 rounded mb-5">
-                <p class="error-text">{$errorMessages['auth']|default:''}</p>
+                <p class="error-text"><?php echo (($tmp = $_smarty_tpl->tpl_vars['errorMessages']->value['auth'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
+</p>
                 <div class="form-group">
                     <label for="name">氏名</label>
-                    <p class="form-control">{$post.name|escape}</p>
+                    <p class="form-control"><?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
+</p>
                 </div>
 
                 <div class="form-group">
                     <label for="furigana">ふりがな</label>
-                    <p class="form-control">{$post.kana|escape}</p>
+                    <p class="form-control"><?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['kana'], ENT_QUOTES, 'UTF-8', true);?>
+</p>
                 </div>
 
                 <div class="form-group">
                     <label for="tel">電話番号</label>
-                    <p class="form-control">{$post.tel|escape}</p>
+                    <p class="form-control"><?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['tel'], ENT_QUOTES, 'UTF-8', true);?>
+</p>
                 </div>
 
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <p class="form-control">{$post.email|escape}</p>
+                    <p class="form-control"><?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['email'], ENT_QUOTES, 'UTF-8', true);?>
+</p>
                 </div>
 
                 <div class="form-group">
                     <label for="body">問い合わせ内容</label>
-                    <textarea class="form-control" rows="5" readonly>{$post.body|escape}</textarea>
+                    <textarea class="form-control" rows="5" readonly><?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['body'], ENT_QUOTES, 'UTF-8', true);?>
+</textarea>
                 </div>
 
                 <div class="button-group">
@@ -60,4 +89,5 @@
     </div>
 </div>
 </div>
-</body>
+</body><?php }
+}

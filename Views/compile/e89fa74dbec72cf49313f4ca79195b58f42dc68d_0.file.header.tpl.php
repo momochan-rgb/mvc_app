@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.47, created on 2024-12-24 04:30:47
+/* Smarty version 4.5.5, created on 2024-12-26 01:58:12
   from '/Applications/MAMP/htdocs/mvc_app/Views/layout/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '3.1.47',
-  'unifunc' => 'content_676a38f7140666_39747848',
+  'version' => '4.5.5',
+  'unifunc' => 'content_676cb834d06218_20004097',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_676a38f7140666_39747848 (Smarty_Internal_Template $_smarty_tpl) {
+function content_676cb834d06218_20004097 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="row">
     <div class="col-md-12 col-xs-10 px-0" style="background-color:lightgray;">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color:lightgray;">
