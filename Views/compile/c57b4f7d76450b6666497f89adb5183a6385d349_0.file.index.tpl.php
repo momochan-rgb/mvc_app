@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.5, created on 2024-12-26 02:36:49
+/* Smarty version 4.5.5, created on 2025-01-06 06:09:10
   from '/Applications/MAMP/htdocs/mvc_app/Views/contact/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.5',
-  'unifunc' => 'content_676cc14153bb82_51935851',
+  'unifunc' => 'content_677b73863c8e71_99517262',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c57b4f7d76450b6666497f89adb5183a6385d349' => 
     array (
       0 => '/Applications/MAMP/htdocs/mvc_app/Views/contact/index.tpl',
-      1 => 1735178759,
+      1 => 1736142819,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_676cc14153bb82_51935851 (Smarty_Internal_Template $_smarty_tpl) {
+function content_677b73863c8e71_99517262 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +35,26 @@ function content_676cc14153bb82_51935851 (Smarty_Internal_Template $_smarty_tpl)
     <div class="row justify-content-center">
         <div class="col-lg-6 mx-auto col-md-8">
             <h2 class="mb-4">入力画面</h2>
+            <?php if ($_smarty_tpl->tpl_vars['successMessage']->value) {?>
+                <div class="alert alert-success"><?php echo $_smarty_tpl->tpl_vars['successMessage']->value;?>
+</div>
+            <?php }?>
+
+            <?php if ($_smarty_tpl->tpl_vars['errorMessages']->value) {?>
+                <div class="alert alert-danger">
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['errorMessages']->value, 'message');
+$_smarty_tpl->tpl_vars['message']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['message']->value) {
+$_smarty_tpl->tpl_vars['message']->do_else = false;
+?>
+                        <p><?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+</p>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                </div>
+            <?php }?>
             <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5">
                 <p class="error-text"><?php echo (($tmp = $_smarty_tpl->tpl_vars['errorMessages']->value['auth'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
 </p>
@@ -56,7 +76,7 @@ function content_676cc14153bb82_51935851 (Smarty_Internal_Template $_smarty_tpl)
 
                 <div class="form-group">
                     <label for="tel">電話番号</label>
-                    <input type="tel" class="form-control"  name="tel" placeholder="06-6012-3456" value="<?php echo (($tmp = $_smarty_tpl->tpl_vars['post']->value['tel'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
+                    <input type="tel" class="form-control"  name="tel" placeholder="0660123456" value="<?php echo (($tmp = $_smarty_tpl->tpl_vars['post']->value['tel'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
 ">
                     <p class="error-text"><?php echo (($tmp = $_smarty_tpl->tpl_vars['errorMessages']->value['tel'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
 </p>
@@ -96,7 +116,105 @@ function content_676cc14153bb82_51935851 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
     </div>
+    <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>氏名</th>
+                    <th>ふりがな</th>
+                    <th>電話番号</th>
+                    <th>メールアドレス</th>
+                    <th>お問い合わせ内容</th>
+                    <th>送信日時</th>
+                    <th>更新</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['tableData']->value, 'row');
+$_smarty_tpl->tpl_vars['row']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
+$_smarty_tpl->tpl_vars['row']->do_else = false;
+?>
+                <tr>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['id'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['name'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['kana'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['tel'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['email'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['body'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['row']->value['created_at'];?>
+</td>
+                    <td>
+                        <a href="/contact/edit?id=<?php echo $_smarty_tpl->tpl_vars['row']->value['id'];?>
+" class="extract-url" data-id="<?php echo $_smarty_tpl->tpl_vars['row']->value['id'];?>
+">更新</a>
+                    </td>
+                    <td>
+                        <a href="#" onclick="deleteContact(<?php echo $_smarty_tpl->tpl_vars['row']->value['id'];?>
+); return false;">削除</a>
+                    </td>
+                </tr>
+                <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            </tbody>
+        </table>
+    </div>
 </div>
 </div>
-</body><?php }
+</div>
+<?php echo '<script'; ?>
+>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll(".extract-url");
+        
+        links.forEach(function(link) {
+            const url = link.getAttribute("href");
+            
+            const idMatch = url.match(/\?id=(\d+)/);
+            if (idMatch) {
+                const extractedId = idMatch[1];
+                console.log("Extracted ID: " + extractedId); 
+            } else {
+                console.error("IDの抽出に失敗しました: " + url);
+            }
+        });
+    });
+
+    function deleteContact(id) {
+        if (confirm('本当に削除しますか？')) {
+            fetch('/contact/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + encodeURIComponent(id)
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('削除に失敗しました。');
+                }
+            })
+            .catch(error => {
+                alert('削除中にエラーが発生しました。');
+                console.error(error);
+            });
+        }
+    }
+<?php echo '</script'; ?>
+>
+</body>
+<?php }
 }

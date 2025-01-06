@@ -32,6 +32,15 @@ class Database
         return $result;
     }
 
+    public function prepare($sql)
+    {
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            die("プリペアドステートメントエラー: " . $this->connection->error);
+        }
+        return $stmt;
+    }
+
     public function close()
     {
         $this->connection->close();

@@ -69,9 +69,36 @@ function route($path, $httpMethod)
                     case ['complete', 'get']:
                         $methodName = 'complete';
                         break;
+                    case ['edit', 'get']:
+                        $methodName = 'edit';
+                        break;
+                    case ['update', 'post']:
+                        $methodName = 'update';
+                        break;
+                    case ['delete', 'post']:
+                        $methodName = 'delete';
+                        break;
+                    case ['findById', 'get']:
+                        $methodName = 'findById';
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id'];  // idを取得
+                            $obj = new $controllerName();
+                            $obj->$methodName($id);  // findByIdを呼び出し
+                        } else {
+                            throw new Exception("ID parameter is missing");
+                        }
+                        break;
                     default:
-                        $controllerName = '';
-                        $methodName = '';
+                        throw new Exception("Invalid method: {$method} for controller: {$controller}");
+                }
+                break;
+            case ['findById', 'get']:
+                if (isset($_GET['id'])) {
+                    $methodName = 'findById';
+                    $id = $_GET['id'];  // リクエストパラメータからidを取得
+                    $obj->$methodName($id);  // findByIdメソッドにidを渡す
+                } else {
+                    throw new Exception('ID parameter is missing');
                 }
                 break;
             default:
@@ -79,10 +106,21 @@ function route($path, $httpMethod)
                     $methodName = '';
                 
         }
-        require_once(ROOT_PATH."Controllers/{$controllerName}.php");
+        
+        $filePath = ROOT_PATH."Controllers/{$controllerName}.php";
+        if (!file_exists($filePath)) {
+            throw new Exception("Controller file not found: {$filePath}");
+        }
+
+        require_once($filePath);
 
         $obj = new $controllerName();
-        $obj->$methodName();
+        if (isset($id)) {
+            $obj->$methodName($id);
+        } else {
+            $obj->$methodName();
+        }
+
 
     } catch (Throwable $e) {
         error_log($e->getMessage());

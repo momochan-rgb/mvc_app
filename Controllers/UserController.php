@@ -22,7 +22,6 @@ class UserController extends Controller
     public function signUp()
     {
         if (is_numeric($this->getAuth())) {
-            // ログイン中の場合はトップページへリダイレクト
             header('Location: /');
             exit();
         }
