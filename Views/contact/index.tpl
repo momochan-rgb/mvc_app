@@ -12,6 +12,17 @@
     <div class="row justify-content-center">
         <div class="col-lg-6 mx-auto col-md-8">
             <h2 class="mb-4">入力画面</h2>
+            {if $successMessage}
+                <div class="alert alert-success">{$successMessage}</div>
+            {/if}
+
+            {if $errorMessages}
+                <div class="alert alert-danger">
+                    {foreach from=$errorMessages item=message}
+                        <p>{$message}</p>
+                    {/foreach}
+                </div>
+            {/if}
             <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5">
                 <p class="error-text">{$errorMessages['auth']|default:''}</p>
                 <div class="form-group">
@@ -28,7 +39,7 @@
 
                 <div class="form-group">
                     <label for="tel">電話番号</label>
-                    <input type="tel" class="form-control"  name="tel" placeholder="06-6012-3456" value="{$post['tel']|default:''}">
+                    <input type="tel" class="form-control"  name="tel" placeholder="0660123456" value="{$post['tel']|default:''}">
                     <p class="error-text">{$errorMessages['tel']|default:''}</p>
                 </div>
 
@@ -62,6 +73,84 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>氏名</th>
+                    <th>ふりがな</th>
+                    <th>電話番号</th>
+                    <th>メールアドレス</th>
+                    <th>お問い合わせ内容</th>
+                    <th>送信日時</th>
+                    <th>更新</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$tableData item=row}
+                <tr>
+                    <td>{$row.id}</td>
+                    <td>{$row.name}</td>
+                    <td>{$row.kana}</td>
+                    <td>{$row.tel}</td>
+                    <td>{$row.email}</td>
+                    <td>{$row.body}</td>
+                    <td>{$row.created_at}</td>
+                    <td>
+                        <a href="/contact/edit?id={$row.id}" class="extract-url" data-id="{$row.id}">更新</a>
+                    </td>
+                    <td>
+                        <a href="#" onclick="deleteContact({$row.id}); return false;">削除</a>
+                    </td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
+    </div>
 </div>
 </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll(".extract-url");
+        
+        links.forEach(function(link) {
+            const url = link.getAttribute("href");
+            
+            const idMatch = url.match(/\?id=(\d+)/);
+            if (idMatch) {
+                const extractedId = idMatch[1];
+                console.log("Extracted ID: " + extractedId); 
+            } else {
+                console.error("IDの抽出に失敗しました: " + url);
+            }
+        });
+    });
+
+    function deleteContact(id) {
+        if (confirm('本当に削除しますか？')) {
+            fetch('/contact/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + encodeURIComponent(id)
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('削除に失敗しました。');
+                }
+            })
+            .catch(error => {
+                alert('削除中にエラーが発生しました。');
+                console.error(error);
+            });
+        }
+    }
+</script>
 </body>
