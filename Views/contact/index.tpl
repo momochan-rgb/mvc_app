@@ -23,7 +23,7 @@
                     {/foreach}
                 </div>
             {/if}
-            <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5">
+            <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5" novalidate>
                 <p class="error-text">{$errorMessages['auth']|default:''}</p>
                 <div class="form-group">
                     <label for="name">氏名</label>

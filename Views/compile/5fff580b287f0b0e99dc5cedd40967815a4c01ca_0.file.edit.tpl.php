@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.5, created on 2025-01-06 07:09:54
+/* Smarty version 4.5.5, created on 2025-01-06 09:53:13
   from '/Applications/MAMP/htdocs/mvc_app/Views/contact/edit.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.5',
-  'unifunc' => 'content_677b81c253f524_32076982',
+  'unifunc' => 'content_677ba80944acd1_16715785',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5fff580b287f0b0e99dc5cedd40967815a4c01ca' => 
     array (
       0 => '/Applications/MAMP/htdocs/mvc_app/Views/contact/edit.tpl',
-      1 => 1736146972,
+      1 => 1736156957,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_677b81c253f524_32076982 (Smarty_Internal_Template $_smarty_tpl) {
+function content_677ba80944acd1_16715785 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@ $_smarty_tpl->tpl_vars['message']->do_else = false;
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
             <?php }?>
-            <form action="/contact/update" method="post">
+            <form action="/contact/update" method="post" class="bg-white p-3 rounded mb-5" novalidate>
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars((string)$_smarty_tpl->tpl_vars['post']->value['id'], ENT_QUOTES, 'UTF-8', true);?>
 ">
                 
@@ -100,7 +100,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
 
                 <div class="button-group">
-                    <button class="btn btn-warning my-2" type="button" onclick="history.back()">キャンセル</button>
+                    <button class="btn btn-warning my-2" type="button" onclick="window.location.href='/contact/index'">キャンセル</button>
                     <button type="submit" class="btn btn-primary">更新</button>
                 </div>
             </form>

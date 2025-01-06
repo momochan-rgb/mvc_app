@@ -61,7 +61,7 @@ class ContactController extends Controller
 
         if (empty($post['email'])) {
             $errorMessages['email'] = 'メールアドレスは必須入力です。';
-        } elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+        } elseif (strpos($data['email'], '@') === false) {
             $errorMessages['email'] = 'メールアドレスには「@」を含む形式で入力してください。';
         }
 
@@ -145,51 +145,69 @@ class ContactController extends Controller
             exit;
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $errorMessages = $this->validate($_POST);
+
+            if (!empty($errorMessages)) {
+                $this->view('contact/edit', [
+                    'post' => $_POST, 
+                    'successMessage' => '',
+                    'errorMessages' => $errorMessages,
+                ]);
+                return;
+            }
+
+            $this->contactModel->update($id, $_POST);
+            $_SESSION['successMessage'] = 'データが更新されました。';
+
+            header('Location: /contact/index');
+            exit;
+        }
+
         $this->view('contact/edit', [
-            'post' => $_SESSION['post'] ?? $data,
-            'errorMessages' => $_SESSION['errorMessages'] ?? []
+            'post' => $data,
+            'successMessage' => '',
+            'errorMessages' => $_SESSION['errorMessages'] ?? [],
         ]);
 
-        unset($_SESSION['errorMessages']);
-        unset($_SESSION['post']);
+        unset($_SESSION['errorMessages']); 
     }
-
 
     private function validate(array $data): array
     {
-        $errors = [];
+        $errorMessages = [];
 
         if (empty($data['name'])) {
-            $errors['name'] = '氏名は必須入力です。';
+            $errorMessages['name'] = '氏名は必須入力です。';
         } elseif (mb_strlen($data['name']) > 10) {
-            $errors['name'] = '氏名は10文字以内です。';
+            $errorMessages['name'] = '氏名は10文字以内です。';
         }
 
         if (empty($data['kana'])) {
-            $errors['kana'] = 'ふりがなは必須入力です。';
+            $errorMessages['kana'] = 'ふりがなは必須入力です。';
         } elseif (!preg_match('/^[ぁ-んァ-ン]+$/u', $data['kana'])) {
-            $errors['kana'] = 'ふりがなはひらがなまたはカタカナで入力してください。';
+            $errorMessages['kana'] = 'ふりがなはひらがなまたはカタカナで入力してください。';
         } elseif (mb_strlen($data['kana']) > 10) {
-            $errors['kana'] = 'ふりがなは10文字以内です。';
+            $errorMessages['kana'] = 'ふりがなは10文字以内です。';
         }
 
         if (empty($data['tel'])) {
-            $errors['tel'] = '電話番号は必須入力です。';
+            $errorMessages['tel'] = '電話番号は必須入力です。';
         } elseif (!preg_match('/^\d+$/',$data['tel'])) {
-            $errors['tel'] = '電話番号は数字入力です。';
+            $errorMessages['tel'] = '電話番号は数字入力です。';
         }
 
         if (empty($data['email'])) {
-            $errors['email'] = 'メールアドレスは必須入力です。';
-        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'メールアドレスには「@」を含む形式で入力してください。';
+            $errorMessages['email'] = 'メールアドレスは必須入力です。';
+        } elseif (strpos($data['email'], '@') === false) {
+            $errorMessages['email'] = 'メールアドレスには「@」を含む形式で入力してください。';
         }
 
         if (empty($data['body'])) {
-            $errors['body'] = '問い合わせ内容は必須入力です。';
+            $errorMessages['body'] = '問い合わせ内容は必須入力です。';
         }
 
-        return $errors;
+        return $errorMessages;
     }
 
     public function update()
@@ -226,7 +244,6 @@ class ContactController extends Controller
             exit;
         }
     }
-
 
     public function delete()
     {

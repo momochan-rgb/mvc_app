@@ -23,7 +23,7 @@
                     {/foreach}
                 </div>
             {/if}
-            <form action="/contact/update" method="post">
+            <form action="/contact/update" method="post" class="bg-white p-3 rounded mb-5" novalidate>
                 <input type="hidden" name="id" value="{$post.id|escape}">
                 
                 <div class="form-group">
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="button-group">
-                    <button class="btn btn-warning my-2" type="button" onclick="history.back()">キャンセル</button>
+                    <button class="btn btn-warning my-2" type="button" onclick="window.location.href='/contact/index'">キャンセル</button>
                     <button type="submit" class="btn btn-primary">更新</button>
                 </div>
             </form>

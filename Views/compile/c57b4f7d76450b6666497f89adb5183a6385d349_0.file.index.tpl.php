@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.5, created on 2025-01-06 06:09:10
+/* Smarty version 4.5.5, created on 2025-01-06 09:46:02
   from '/Applications/MAMP/htdocs/mvc_app/Views/contact/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.5',
-  'unifunc' => 'content_677b73863c8e71_99517262',
+  'unifunc' => 'content_677ba65ac64929_62569642',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c57b4f7d76450b6666497f89adb5183a6385d349' => 
     array (
       0 => '/Applications/MAMP/htdocs/mvc_app/Views/contact/index.tpl',
-      1 => 1736142819,
+      1 => 1736155623,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_677b73863c8e71_99517262 (Smarty_Internal_Template $_smarty_tpl) {
+function content_677ba65ac64929_62569642 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@ $_smarty_tpl->tpl_vars['message']->do_else = false;
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
             <?php }?>
-            <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5">
+            <form action="/contact/confirm" method="post" class="bg-white p-3 rounded mb-5" novalidate>
                 <p class="error-text"><?php echo (($tmp = $_smarty_tpl->tpl_vars['errorMessages']->value['auth'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
 </p>
                 <div class="form-group">
