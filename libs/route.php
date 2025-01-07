@@ -3,10 +3,8 @@
 function route($path, $httpMethod)
 {
     try {
-        var_dump('test0');
         list($controller, $method) = explode('/', $path);
         $case = [$method, $httpMethod];
-        var_dump('test1');
         switch ($controller) {
             case 'home':
                 $controllerName = 'HomeController';
@@ -21,12 +19,10 @@ function route($path, $httpMethod)
                 break;
 
             case 'user':
-                var_dump('test2');
                 $controllerName = 'UserController';
                 switch ($case) {
                     case ['log-in', 'get']:
                         $methodName = 'logIn';
-                        var_dump('test3');
                         break;
                     case ['sign-up', 'get']:
                         $methodName = 'signUp';
@@ -58,11 +54,79 @@ function route($path, $httpMethod)
                 }
                 break;
 
+            case 'contact':
+                $controllerName = 'ContactController';
+
+                if ($case === ['confirm', 'get']) {
+                    header("Location: /contact/index");
+                    exit;
+                }
+            
+                switch ($case) {
+                    case ['index', 'get']:
+                        $methodName = 'index';
+                        break;
+                    case ['confirm', 'post']:
+                        $methodName = 'confirm';
+                        break;
+                    case ['submit', 'post']:
+                        $methodName = 'submit';
+                        break;
+                    case ['complete', 'get']:
+                        $methodName = 'complete';
+                        break;
+                    case ['edit', 'get']:
+                        $methodName = 'edit';
+                        break;
+                    case ['update', 'post']:
+                        $methodName = 'update';
+                        break;
+                    case ['delete', 'post']:
+                        $methodName = 'delete';
+                        break;
+                    case ['findById', 'get']:
+                        $methodName = 'findById';
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id']; 
+                            $obj = new $controllerName();
+                            $obj->$methodName($id); 
+                        } else {
+                            throw new Exception("ID parameter is missing");
+                        }
+                        break;
+                    default:
+                        throw new Exception("Invalid method: {$method} for controller: {$controller}");
+                }
+                break;
+            case ['findById', 'get']:
+                if (isset($_GET['id'])) {
+                    $methodName = 'findById';
+                    $id = $_GET['id'];
+                    $obj->$methodName($id); 
+                } else {
+                    throw new Exception('ID parameter is missing');
+                }
+                break;
+            default:
+                    $controllerName = '';
+                    $methodName = '';
+                
         }
-        require_once(ROOT_PATH."Controllers/{$controllerName}.php");
+        
+        $filePath = ROOT_PATH."Controllers/{$controllerName}.php";
+        if (!file_exists($filePath)) {
+            throw new Exception("Controller file not found: {$filePath}");
+        }
+
+        require_once($filePath);
 
         $obj = new $controllerName();
-        $obj->$methodName();
+        if (isset($id)) {
+            $obj->$methodName($id);
+        } else {
+            $obj->$methodName();
+        }
+
 
     } catch (Throwable $e) {
         error_log($e->getMessage());

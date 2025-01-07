@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.47, created on 2024-12-23 01:32:43
+/* Smarty version 4.5.5, created on 2024-12-26 01:58:12
   from '/Applications/MAMP/htdocs/mvc_app/Views/layout/footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '3.1.47',
-  'unifunc' => 'content_6768bdbba3a7f0_69097388',
+  'version' => '4.5.5',
+  'unifunc' => 'content_676cb834d08b17_22432101',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6768bdbba3a7f0_69097388 (Smarty_Internal_Template $_smarty_tpl) {
+function content_676cb834d08b17_22432101 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="row footer-area">
     <div class="col-12 px-0">
         <footer class="footer" style="display:flex;">
