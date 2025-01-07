@@ -56,6 +56,12 @@ function route($path, $httpMethod)
 
             case 'contact':
                 $controllerName = 'ContactController';
+
+                if ($case === ['confirm', 'get']) {
+                    header("Location: /contact/index");
+                    exit;
+                }
+            
                 switch ($case) {
                     case ['index', 'get']:
                         $methodName = 'index';
@@ -81,9 +87,9 @@ function route($path, $httpMethod)
                     case ['findById', 'get']:
                         $methodName = 'findById';
                         if (isset($_GET['id'])) {
-                            $id = $_GET['id'];  // idを取得
+                            $id = $_GET['id']; 
                             $obj = new $controllerName();
-                            $obj->$methodName($id);  // findByIdを呼び出し
+                            $obj->$methodName($id); 
                         } else {
                             throw new Exception("ID parameter is missing");
                         }
@@ -95,8 +101,8 @@ function route($path, $httpMethod)
             case ['findById', 'get']:
                 if (isset($_GET['id'])) {
                     $methodName = 'findById';
-                    $id = $_GET['id'];  // リクエストパラメータからidを取得
-                    $obj->$methodName($id);  // findByIdメソッドにidを渡す
+                    $id = $_GET['id'];
+                    $obj->$methodName($id); 
                 } else {
                     throw new Exception('ID parameter is missing');
                 }

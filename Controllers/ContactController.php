@@ -38,7 +38,17 @@ class ContactController extends Controller
 
     public function confirm()
     {
+        if (empty($_POST)) {
+            header('Location: /contact/index');
+            exit;
+        }
+        
         $post = $_POST;
+
+        foreach ($post as $key => $value) {
+            $post[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
         $errorMessages = [];
 
         if (empty($post['name'])) {
@@ -61,7 +71,7 @@ class ContactController extends Controller
 
         if (empty($post['email'])) {
             $errorMessages['email'] = 'メールアドレスは必須入力です。';
-        } elseif (strpos($data['email'], '@') === false) {
+        } elseif (strpos($post['email'], '@') === false) {
             $errorMessages['email'] = 'メールアドレスには「@」を含む形式で入力してください。';
         }
 
@@ -129,6 +139,16 @@ class ContactController extends Controller
 
     public function edit()
     {
+        $referer = $_SERVER['HTTP_REFERER'] ?? '';
+        $isValidReferer = strpos($referer, '/contact/index') !== false || strpos($referer, '/contact/edit') !== false;
+
+        if (!$isValidReferer) {
+            $_SESSION['errorMessages'] = ['access' => '無効なアクセスです。'];
+            header('Location: /contact/index');
+            exit;
+        }
+
+
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
         if (!$id || !is_numeric($id)) {
@@ -221,7 +241,11 @@ class ContactController extends Controller
         $id = $_POST['id'];
         $data = $_POST;
 
-        error_log("POSTデータ: " . print_r($data, true));
+        foreach ($data as $key => $value) {
+            $data[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
+        error_log("サニタイズ済みPOSTデータ: " . print_r($data, true));
 
         $errorMessages = $this->validate($data);
         if (!empty($errorMessages)) {

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.5, created on 2024-12-26 03:15:11
+/* Smarty version 4.5.5, created on 2025-01-07 02:04:44
   from '/Applications/MAMP/htdocs/mvc_app/Views/contact/confirm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.5',
-  'unifunc' => 'content_676cca3f90e817_82937224',
+  'unifunc' => 'content_677c8bbce58713_66483218',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '280907aa78c3f952610961fd6cbdd00fdb362508' => 
     array (
       0 => '/Applications/MAMP/htdocs/mvc_app/Views/contact/confirm.tpl',
-      1 => 1735182864,
+      1 => 1736212982,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_676cca3f90e817_82937224 (Smarty_Internal_Template $_smarty_tpl) {
+function content_677c8bbce58713_66483218 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
